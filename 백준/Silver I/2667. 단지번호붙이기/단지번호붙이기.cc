@@ -22,16 +22,16 @@ int main() {
     cin >> square[i];
   }
 
-  char count = '0';
-  int cnt2 = 0;
+  char num = '0';
+  int total = 0;
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
       if (square[i][j] == '1' && !visited[i][j]) {
         int cnt = 1;
-        cnt2++;
-        count++;
+        total++;
+        num++;
         q.push(make_pair(i, j));
-        square[i][j] = count;
+        square[i][j] = num;
         visited[i][j] = true;
         while (!q.empty()) {
           pair<int, int> p = q.front();
@@ -44,7 +44,7 @@ int main() {
             if (visited[y][x] || square[y][x] != '1') continue;
             cnt++;
             q.push(make_pair(y, x));
-            square[y][x] = count;
+            square[y][x] = num;
             visited[y][x] = true;
           }
         }
@@ -52,7 +52,7 @@ int main() {
       }
     }
   }
-  cout << cnt2 << '\n';
+  cout << total << '\n';
   sort(v.begin(), v.end());
   for (vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
     cout << *it << '\n';
