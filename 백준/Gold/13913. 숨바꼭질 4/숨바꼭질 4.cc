@@ -19,7 +19,7 @@ int main() {
   cin >> N >> K;
   if (N == K) {
     cout << 0 << '\n';
-    cout << N << '\n';
+    cout << N;
     return 0;
   }
 
@@ -36,7 +36,6 @@ int main() {
         cout << s.top() << " ";
         s.pop();
       }
-      cout << '\n';
       return 0;
     }
 
