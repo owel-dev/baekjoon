@@ -1,50 +1,41 @@
 #include <iostream>
-#include <cstring>
+#include <vector>
 
 using namespace std;
 
 int N;
-char grid[2200][2200];
 
-void star(int size) {
-    if (size == 3) {
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (i == 1 && j == 1) continue;
-                else grid[i][j] = '*';
-            }
-        }
-        return;
+vector<string> star(int size) {
+    vector<string> ret;
+
+    if (size == 1) {
+        ret.emplace_back("*");
+        return ret;
     }
 
-    star(size / 3);
-
-    int gap = size / 3;
-    for (int i = 0; i < size; i += gap) {
-        for (int j = 0; j < size; j += gap) {
-            if (i == gap && j == gap) continue;
-            for (int k = 0; k < gap; ++k) {
-                for (int l = 0; l < gap; ++l) {
-                    grid[i + k][j + l] = grid[k][l];
-                }
+    vector<string> sub = star(size / 3);
+    
+    for (int part = 0; part < 3; ++part) {
+        for (const string &s: sub) {
+            if (part == 1) {
+                string blank(size/3, ' ');
+                ret.emplace_back(s + blank + s);
+            } else {
+                ret.emplace_back(s + s + s);
             }
+
         }
+
     }
+
+    return ret;
 }
 
 int main() {
     cin >> N;
-    
-    for (int i = 0; i < N; ++i) {
-        memset(grid[i], ' ', N);
-    }
 
-    star(N);
-
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            cout << grid[i][j];
-        }
-        cout << endl;
+    vector<string> v = star(N);
+    for (const auto &line: v) {
+        cout << line << endl;
     }
 }
