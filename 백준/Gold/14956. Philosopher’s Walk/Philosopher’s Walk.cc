@@ -18,7 +18,7 @@ pair<int, int> find(int n, int m) {
     int quarter = total / 4;
     int quadrant = m / quarter;
 
-    auto p = find(n / 2, m - quarter * quadrant);
+    auto p = find(n / 2, m % quarter);
     int x = p.first;
     int y = p.second;
 
