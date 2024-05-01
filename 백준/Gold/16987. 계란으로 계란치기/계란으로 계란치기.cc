@@ -4,29 +4,20 @@ using namespace std;
 
 pair<int, int> eggs[9];
 int N, S, W;
-bool visited[9];
-int sequence[9];
 int ans;
 
 void bt(int curr) {
-    // cout << endl;
-    // cout << "bt(curr) " << curr << endl;
-    // for (int j = 0; j < N; ++j) {
-    //     cout << curr << ' ' << eggs[j].first << ' ' << eggs[j].second << endl;
-    // }
-
     if (curr == N) {
         int count = 0;
         for (int i = 0; i < N; ++i) {
             if (eggs[i].first <= 0) count++;
         }
-        // cout << "count: " << count << endl;
         if (ans < count) ans = count;
+
         return;
     }
 
     if (eggs[curr].first <= 0) {
-        // cout << "curr is broken" << endl;
         bt(curr + 1);
 
         return;
@@ -34,8 +25,6 @@ void bt(int curr) {
     bool flag = false;
     for (int i = 0; i < N; ++i) {
         if (eggs[i].first <= 0 || curr == i) continue;
-
-        // cout << "egg pounch - curr: " << curr << ", i: " << i << endl;
 
         eggs[curr].first -= eggs[i].second;
         eggs[i].first -= eggs[curr].second;
@@ -47,17 +36,7 @@ void bt(int curr) {
         eggs[i].first += eggs[curr].second;
     }
 
-    if (!flag) bt(curr + 1);
-
-    if (curr == N - 1) {
-        int count = 0;
-        for (int i = 0; i < N; ++i) {
-            if (eggs[i].first <= 0) count++;
-        }
-        // cout << "count: " << count << endl;
-        if (ans < count) ans = count;
-    }
-
+    if (!flag || curr == N - 1) bt(curr + 1);
 }
 
 int main() {
@@ -69,10 +48,6 @@ int main() {
     }
 
     bt(0);
-
-    // for (int i = 0; i < N; ++i) {
-    //     cout << eggs[i].first << ' ' << eggs[i].second << endl;
-    // }
 
     cout << ans;
 }
