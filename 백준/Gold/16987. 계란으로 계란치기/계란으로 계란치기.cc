@@ -12,16 +12,16 @@ void bt(int curr) {
         for (int i = 0; i < N; ++i) {
             if (eggs[i].first <= 0) count++;
         }
+        
         if (ans < count) ans = count;
-
         return;
     }
 
     if (eggs[curr].first <= 0) {
         bt(curr + 1);
-
         return;
     }
+    
     bool flag = false;
     for (int i = 0; i < N; ++i) {
         if (eggs[i].first <= 0 || curr == i) continue;
@@ -36,7 +36,7 @@ void bt(int curr) {
         eggs[i].first += eggs[curr].second;
     }
 
-    if (!flag || curr == N - 1) bt(curr + 1);
+    if (!flag) bt(curr + 1);
 }
 
 int main() {
